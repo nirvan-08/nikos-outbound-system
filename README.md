@@ -24,3 +24,25 @@ printf '%s' 'myuser:mypassword' | sha256sum
 ```
 
 This screen is a convenience lock only. Real access control is the artifact's private sharing on claude.ai.
+
+## Hosted version (Cloudflare Pages + Supabase)
+
+`web/index.html` is the same dashboard wired to Supabase instead of the claude.ai runtime. Data lives in a locked `outbound` schema inside the ERP Supabase project (`supabase/migrations/`). ERP tables are not touched, and only users listed in `outbound.allowed_users` can read or write.
+
+Cloudflare Pages settings:
+
+| Setting | Value |
+| --- | --- |
+| Build command | `node build.mjs` |
+| Build output directory | `web` |
+| Env var `SUPABASE_URL` | `https://ttjqlzrrlwnlcyovebvy.supabase.co` |
+| Env var `SUPABASE_ANON_KEY` | the project's publishable key (Supabase → Project Settings → API Keys) |
+
+One-time Supabase setup:
+
+1. Project Settings → Data API → Exposed schemas: add `outbound`.
+2. Authentication → Users → Add user: email `<username>@nikos-outbound.local`, a password, tick Auto Confirm. The login page accepts the bare username.
+3. Add that user's id to `outbound.allowed_users`.
+4. Edge Function secrets for email: `GMAIL_USER` and `GMAIL_APP_PASSWORD` (a Google app password). Without them the page still offers "Open in Gmail".
+
+Edge functions (`supabase/functions/`): `send-email` (signed-in allowed users only, sends after the in-page confirm) and `ingest-leads` (the lead finder's add-only endpoint, token checked against `outbound.ingest_tokens`). The lead finder prompt for this version is `lead-finder/PROMPT-supabase.md`.
