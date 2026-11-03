@@ -1,7 +1,7 @@
 // Sends one email from Nirvan's Gmail over SMTP. Called by the dashboard after the user confirms.
 // Secrets: GMAIL_USER (address), GMAIL_APP_PASSWORD (16-char Google app password), optional GMAIL_FROM_NAME.
 import { createClient } from "npm:@supabase/supabase-js@2.45.4";
-import { SMTPClient } from "jsr:@worker-tools/denomailer@0.16.0";
+import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 
 const cors = {
   "Access-Control-Allow-Origin": "*",

@@ -1,14 +1,24 @@
 // Lets the scheduled lead finder read existing keys (for dedupe) and add NEW prospects only.
-// Auth: header "x-ingest-token" must equal the INGEST_TOKEN secret. It can never update or delete.
+// Auth: header "x-ingest-token" whose sha256 is in outbound.ingest_tokens (or equals the optional
+// INGEST_TOKEN secret). It can never update or delete existing prospects.
 import { createClient } from "npm:@supabase/supabase-js@2.45.4";
 
 const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } });
 
 Deno.serve(async (req) => {
-  const token = Deno.env.get("INGEST_TOKEN");
-  if (!token || req.headers.get("x-ingest-token") !== token) return json(401, { error: "bad token" });
   const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { db: { schema: "outbound" } });
+  const given = req.headers.get("x-ingest-token") ?? "";
+  if (given.length < 20) return json(401, { error: "bad token" });
+  const envToken = Deno.env.get("INGEST_TOKEN");
+  let ok = !!envToken && given === envToken;
+  if (!ok) {
+    const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(given));
+    const hex = [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
+    const { data } = await sb.from("ingest_tokens").select("token_sha256").eq("token_sha256", hex).maybeSingle();
+    ok = !!data;
+  }
+  if (!ok) return json(401, { error: "bad token" });
 
   if (req.method === "GET") {
     const keys: unknown[] = [];
