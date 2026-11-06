@@ -6,6 +6,9 @@ const cfg = {
   schema: process.env.SUPABASE_SCHEMA || "outbound",
   loginEmailDomain: process.env.LOGIN_EMAIL_DOMAIN || "nikos-outbound.local",
 };
-if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) console.warn("SUPABASE_URL or SUPABASE_ANON_KEY is not set; the site will show a setup message.");
+if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) {
+  console.log("SUPABASE_URL / SUPABASE_ANON_KEY not set; keeping the committed web/config.js.");
+  process.exit(0);
+}
 writeFileSync("web/config.js", `window.OUTBOUND_CONFIG=${JSON.stringify(cfg)};\n`);
 console.log("Wrote web/config.js");

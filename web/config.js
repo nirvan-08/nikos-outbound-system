@@ -1,0 +1,1 @@
+window.OUTBOUND_CONFIG={"supabaseUrl":"https://ttjqlzrrlwnlcyovebvy.supabase.co","supabaseAnonKey":"sb_publishable_LfOfhqYDkDnH_IPLaOcgBA_4o6Rk1mW","schema":"outbound","loginEmailDomain":"nikos-outbound.local"};
