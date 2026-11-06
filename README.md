@@ -29,7 +29,7 @@ This screen is a convenience lock only. Real access control is the artifact's pr
 
 `web/index.html` is the same dashboard wired to Supabase instead of the claude.ai runtime. Data lives in a locked `outbound` schema inside the ERP Supabase project (`supabase/migrations/`). ERP tables are not touched, and only users listed in `outbound.allowed_users` can read or write.
 
-Cloudflare Pages settings:
+Cloudflare settings (Workers Builds or Pages). After connecting the repo, any push to `main` starts a build:
 
 | Setting | Value |
 | --- | --- |
