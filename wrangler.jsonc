@@ -1,0 +1,7 @@
+{
+  // Cloudflare Workers static site. Build runs `node build.mjs` (writes web/config.js), then `npx wrangler deploy`.
+  // "name" must match the Worker's name in the Cloudflare dashboard.
+  "name": "nikos-outbound-system",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./web", "not_found_handling": "single-page-application" }
+}

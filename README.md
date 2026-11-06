@@ -34,9 +34,10 @@ Cloudflare Pages settings:
 | Setting | Value |
 | --- | --- |
 | Build command | `node build.mjs` |
-| Build output directory | `web` |
-| Env var `SUPABASE_URL` | `https://ttjqlzrrlwnlcyovebvy.supabase.co` |
-| Env var `SUPABASE_ANON_KEY` | the project's publishable key (Supabase → Project Settings → API Keys) |
+| Build output directory (Pages) | `web` |
+| Deploy command (Workers) | `npx wrangler deploy` (uses `wrangler.jsonc`, which serves `web/`) |
+| Build variable `SUPABASE_URL` | `https://ttjqlzrrlwnlcyovebvy.supabase.co` |
+| Build variable `SUPABASE_ANON_KEY` | the project's publishable key (Supabase → Project Settings → API Keys) |
 
 One-time Supabase setup:
 
