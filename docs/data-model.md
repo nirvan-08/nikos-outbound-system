@@ -11,6 +11,7 @@ The dashboard keeps its data in the artifact's document store (`window.claude.us
 | segment | `1 · Tender CNC shop`, `2 · Auto component`, `3 · Tool room / die & mould`, `4 · Machinery components`, `5 · Aerospace`, `Skip` |
 | fit, fitReason | Strong / Good / Medium / Low / Skip |
 | qualify, qualifyScore | `{cnc, staff10, gst, tendersOrJobWork}` yes/no/unknown; 2+ yes = good lead |
+| niche, nicheSource | `true` for mid-size (₹1–150 Cr) manufacturers found outside IndiaMART (MCA filings, SIDM, EEPC). Shown under "Niche prospects" while status is New. |
 | revenue | Estimated annual revenue, ₹ crore range |
 | employees, machines, factorySize, yearEst, legalStatus, tenderBuyers | |
 | status | New, Contacted, Replied, Meeting, Accepted, Denied |
