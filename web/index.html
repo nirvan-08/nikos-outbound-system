@@ -13,7 +13,7 @@
 :root{
   --bg:#f4f2ed; --surface:#fbfaf7; --sunk:#efede7; --ink:#141413; --muted:#5f5d58; --line:#e1dfda;
   --accent:#c9370f; --accent-ink:#ffffff; --mark:#b7791f; --bar:#303f2d; --logo-bg:#111111; --logo-node:#e9e7e2; --brand-dot:#df3d14;
-  --s-new:#5d6763; --s-contacted:#1f64c4; --s-replied:#7a4fc0; --s-meeting:#b7791f; --s-accepted:#1d8a4e; --s-denied:#c23b32;
+  --s-new:#5d6763; --s-niche:#df3d14; --s-contacted:#1f64c4; --s-replied:#7a4fc0; --s-meeting:#b7791f; --s-accepted:#1d8a4e; --s-denied:#c23b32;
   --danger:#c23b32; --ok:#1d8a4e;
   --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
   --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -23,12 +23,12 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#131312; --surface:#1b1b19; --sunk:#171715; --ink:#ecebe7; --muted:#a3a19b; --line:#2e2d2a;
   --accent:#ff6b42; --accent-ink:#1a0b06; --mark:#e0a63e; --bar:#3f5239; --logo-bg:#000000; --logo-node:#e9e7e2; --brand-dot:#ff5a2c;
-  --s-new:#97a39e; --s-contacted:#6aa2ee; --s-replied:#b294ea; --s-meeting:#e0a63e; --s-accepted:#4fc283; --s-denied:#ef7a70;
+  --s-new:#97a39e; --s-niche:#f07a52; --s-contacted:#6aa2ee; --s-replied:#b294ea; --s-meeting:#e0a63e; --s-accepted:#4fc283; --s-denied:#ef7a70;
   --danger:#ef7a70; --ok:#4fc283; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#131312; --surface:#1b1b19; --sunk:#171715; --ink:#ecebe7; --muted:#a3a19b; --line:#2e2d2a;
   --accent:#ff6b42; --accent-ink:#1a0b06; --mark:#e0a63e; --bar:#3f5239; --logo-bg:#000000; --logo-node:#e9e7e2; --brand-dot:#ff5a2c;
-  --s-new:#97a39e; --s-contacted:#6aa2ee; --s-replied:#b294ea; --s-meeting:#e0a63e; --s-accepted:#4fc283; --s-denied:#ef7a70;
+  --s-new:#97a39e; --s-niche:#f07a52; --s-contacted:#6aa2ee; --s-replied:#b294ea; --s-meeting:#e0a63e; --s-accepted:#4fc283; --s-denied:#ef7a70;
   --danger:#ef7a70; --ok:#4fc283; color-scheme:dark}
 html,body{background:var(--bg);color:var(--ink)}
 body{font-family:var(--f-body);font-size:14px;line-height:1.45}
@@ -219,27 +219,27 @@ const segKey=s=>{s=String(s||"");return s.startsWith("Skip")?"S":(s.match(/^[1-5
 const QUESTIONS=[["cnc","Runs CNC / VMC machines"],["staff10","About 10+ staff"],["gst","Raises GST invoices"],["tendersOrJobWork","Bids on tenders or sends parts out for job work"]];
 const TEMPLATES={
   seg1:{label:"Tender CNC shop: email",seg:"1",subject:"New GeM and CPPP tenders for {company}, every 6 hours",body:
-"Namaste {first},\n\nOur system checks CPPP, GeM, eprocure and the state portals every 6 hours and drops every new tender that matches your parts into one list, so {company} stops finding tenders after they close.\n\nWhen you win one, the same system carries it through: quotation, sales order, job card, first-off and final inspection, then the GST invoice with the e-invoice and e-way bill files ready to upload. Your buyer's inspection paperwork stays with the job.\n\nI'd like to set up a free 2-week tender watch for {company}. You tell me your parts and states, and you start getting matching tenders the same day. Shall I set it up?\n\nRegards,"},
+"{greeting} {first},\n\nOur system checks CPPP, GeM, eprocure and the state portals every 6 hours and drops every new tender that matches your parts into one list, so {company} stops finding tenders after they close.\n\nWhen you win one, the same system carries it through: quotation, sales order, job card, first-off and final inspection, then the GST invoice with the e-invoice and e-way bill files ready to upload. Your buyer's inspection paperwork stays with the job.\n\nI'd like to set up a free 2-week tender watch for {company}. You tell me your parts and states, and you start getting matching tenders the same day. Shall I set it up?\n\nRegards,"},
   seg1wa:{label:"Tender CNC shop: WhatsApp",seg:"1",subject:"",body:
-"Namaste {first} ji, I'm from Nikos Technologies. We check CPPP, GeM and the state portals every 6 hours and send CNC shops every new tender for their parts. Tenders you win go straight into job cards, inspection and GST invoices. Can I set up a free 2-week tender watch for {company}? Just tell me your parts and states."},
+"{greeting} {first} ji, I'm from Nikos Technologies. We check CPPP, GeM and the state portals every 6 hours and send CNC shops every new tender for their parts. Tenders you win go straight into job cards, inspection and GST invoices. Can I set up a free 2-week tender watch for {company}? Just tell me your parts and states."},
   seg2:{label:"Auto component: email",seg:"2",subject:"ITC-04 and job-work challans at {company}",body:
-"Namaste {first},\n\nIf {company} sends parts out for heat treatment or plating every week, our system keeps every job-work challan and receipt in one register, turns it red before the 1 and 3 year limits, and gives you the ITC-04 file at the end of the quarter.\n\nThe same system runs the rest of the shop: job cards your operators start and stop by scanning a QR code on their phone, a machine schedule that shows late jobs in red, and GST invoices with e-way bill files ready.\n\nCould I show you in a 20 minute visit or call?\n\nRegards,"},
+"{greeting} {first},\n\nIf {company} sends parts out for heat treatment or plating every week, our system keeps every job-work challan and receipt in one register, turns it red before the 1 and 3 year limits, and gives you the ITC-04 file at the end of the quarter.\n\nThe same system runs the rest of the shop: job cards your operators start and stop by scanning a QR code on their phone, a machine schedule that shows late jobs in red, and GST invoices with e-way bill files ready.\n\nCould I show you in a 20 minute visit or call?\n\nRegards,"},
   seg2wa:{label:"Auto component: WhatsApp",seg:"2",subject:"",body:
-"Namaste {first} ji, I'm from Nikos Technologies. For shops that send parts out for heat treatment and plating, our system keeps every job-work challan in one register and gives you the ITC-04 file ready. Operators start/stop jobs with a QR scan on their phone. Can I show {company} a 20 minute demo?"},
+"{greeting} {first} ji, I'm from Nikos Technologies. For shops that send parts out for heat treatment and plating, our system keeps every job-work challan in one register and gives you the ITC-04 file ready. Operators start/stop jobs with a QR scan on their phone. Can I show {company} a 20 minute demo?"},
   seg3:{label:"Tool room: email",seg:"3",subject:"Quotes to job cards at {company}",body:
-"Namaste {first},\n\nEvery job in a tool room is different, so most of the day goes into quoting and chasing where each job is on the floor.\n\nIn our system an enquiry becomes a quotation, a won quotation becomes the sales order and job card, and your operators start and stop each operation by scanning the QR code on the printed job card with their phone. You see where every die and mould stands without walking the floor. Plans start at ₹3,500 a month.\n\nCan I show you a short demo this week?\n\nRegards,"},
+"{greeting} {first},\n\nEvery job in a tool room is different, so most of the day goes into quoting and chasing where each job is on the floor.\n\nIn our system an enquiry becomes a quotation, a won quotation becomes the sales order and job card, and your operators start and stop each operation by scanning the QR code on the printed job card with their phone. You see where every die and mould stands without walking the floor. Plans start at ₹3,500 a month.\n\nCan I show you a short demo this week?\n\nRegards,"},
   seg3wa:{label:"Tool room: WhatsApp",seg:"3",subject:"",body:
-"Namaste {first} ji, I'm from Nikos Technologies. Our system turns tool-room enquiries into quotes and job cards, and operators start/stop each job by scanning a QR on their phone, so you always know where each job stands. From ₹3,500/month. Can I show you a quick demo?"},
+"{greeting} {first} ji, I'm from Nikos Technologies. Our system turns tool-room enquiries into quotes and job cards, and operators start/stop each job by scanning a QR on their phone, so you always know where each job stands. From ₹3,500/month. Can I show you a quick demo?"},
   seg4:{label:"Machinery components: email",seg:"4",subject:"Running {company}'s shop floor without Excel",body:
-"Namaste {first},\n\nKeep Tally for your accounts. Our system runs the shop floor: raw material inward and issue, stock, job cards, and a weekly machine schedule where you drag jobs onto machines and see overloaded days and late jobs in red.\n\nIt also prints GST invoices and delivery challans on your letterhead, with the e-invoice and e-way bill files ready to upload, and your dashboard shows open orders, late jobs and overdue payments by customer.\n\nCould I show you how it would look for {company}?\n\nRegards,"},
+"{greeting} {first},\n\nKeep Tally for your accounts. Our system runs the shop floor: raw material inward and issue, stock, job cards, and a weekly machine schedule where you drag jobs onto machines and see overloaded days and late jobs in red.\n\nIt also prints GST invoices and delivery challans on your letterhead, with the e-invoice and e-way bill files ready to upload, and your dashboard shows open orders, late jobs and overdue payments by customer.\n\nCould I show you how it would look for {company}?\n\nRegards,"},
   seg4wa:{label:"Machinery components: WhatsApp",seg:"4",subject:"",body:
-"Namaste {first} ji, I'm from Nikos Technologies. Keep Tally for accounts; our system runs your shop floor: stock, job cards, a machine schedule showing late jobs in red, and GST invoices with e-way bill files. Can I show you a short demo for {company}?"},
+"{greeting} {first} ji, I'm from Nikos Technologies. Keep Tally for accounts; our system runs your shop floor: stock, job cards, a machine schedule showing late jobs in red, and GST invoices with e-way bill files. Can I show you a short demo for {company}?"},
   intro:{label:"General: first email",subject:"Running {company} on one system",body:
-"Namaste {first},\n\nI came across {company} and your work in {industry}. Most shops your size run jobs, stock and dispatch across Excel and Tally, which makes it hard to see what is late and what is owed.\n\nOur system is built for Indian machining shops: enquiry to quotation to job card, inspection, GST invoice and dispatch in one place, with a phone screen for operators and a dashboard for the owner. It comes set up for CNC job shops from the first day.\n\nWould you be open to a 20 minute call this week?\n\nRegards,"},
+"{greeting} {first},\n\nI came across {company} and your work in {industry}. Most shops your size run jobs, stock and dispatch across Excel and Tally, which makes it hard to see what is late and what is owed.\n\nOur system is built for Indian machining shops: enquiry to quotation to job card, inspection, GST invoice and dispatch in one place, with a phone screen for operators and a dashboard for the owner. It comes set up for CNC job shops from the first day.\n\nWould you be open to a 20 minute call this week?\n\nRegards,"},
   follow:{label:"Follow-up",subject:"Re: {company}",body:
-"Namaste {first},\n\nFollowing up on my note from last week. In 20 minutes I can show you how a shop like {company} tracks tenders, job cards, inspections and GST invoices in one system.\n\nIs a short call on Thursday or Friday possible?\n\nRegards,"},
+"{greeting} {first},\n\nFollowing up on my note from last week. In 20 minutes I can show you how a shop like {company} tracks tenders, job cards, inspections and GST invoices in one system.\n\nIs a short call on Thursday or Friday possible?\n\nRegards,"},
   client:{label:"Client check-in",subject:"Checking in on the ERP at {company}",body:
-"Namaste {first},\n\nHope the system is working well for the team at {company}. Is there anything you'd like changed or any report you need that you don't have yet?\n\nRegards,"},
+"{greeting} {first},\n\nHope the system is working well for the team at {company}. Is there anything you'd like changed or any report you need that you don't have yet?\n\nRegards,"},
   blank:{label:"Blank",subject:"",body:""}
 };
 const $=s=>document.querySelector(s);
@@ -279,13 +279,18 @@ try{const t=localStorage.getItem("pp-tab");if(t==="clients")ui.tab="clients"}cat
 function banner(text,err){const b=$("#banner");if(!text){b.hidden=true;return}b.hidden=false;b.className="banner"+(err?" err":"");b.textContent=text}
 
 /* ---------- Prospects view ---------- */
+function reachable(p){return isEmail(p.email)||String(p.phone||"").replace(/\D/g,"").length>=10}
+function isNiche(p){return p.niche===true||p.niche==="true"}
 function segOK(p){const k=segKey(p.segment);if(ui.seg==="all")return true;if(ui.seg==="active")return k!=="S";return k===ui.seg}
 function segPill(sg){if(!sg)return '<span class="missing">not scored</span>';const k=segKey(sg);return `<span class="pill" style="--c:var(${SEGC[k]||"--s-new"})">${esc(sg)}</span>`}
 function filtered(){
   const q=ui.q.trim().toLowerCase();
   let rows=prospects.filter(p=>{
-    if(ui.status!=="all"&&(p.status||"New")!==ui.status)return false;
+    if(ui.status==="niche"){if(!isNiche(p)||(p.status||"New")!=="New")return false}
+    else if(ui.status==="New"){if(isNiche(p)||(p.status||"New")!=="New")return false}
+    else if(ui.status!=="all"&&(p.status||"New")!==ui.status)return false;
     if(!segOK(p))return false;
+    if(!reachable(p))return false;
     if(ui.fit!=="all"&&!String(p.fit||"").startsWith(ui.fit))return false;
     if(ui.contact==="email"&&!isEmail(p.email))return false;
     if(ui.contact==="noemail"&&isEmail(p.email))return false;
@@ -300,10 +305,10 @@ function filtered(){
 }
 function renderRail(){
   const counts={all:prospects.length};STATUSES.forEach(s=>counts[s]=0);
-  const base=prospects.filter(segOK);counts.all=base.length;
-  base.forEach(p=>{const s=p.status||"New";counts[s]=(counts[s]||0)+1});
-  const tab=([k,l,c])=>`<button role="tab" aria-pressed="${ui.status===k}" data-st="${k}" ${c?`style="--c:var(${c})"`:""}>${c?'<span class="dotc"></span>':""}${l}<span class="val">${loadedP?counts[k]:"–"}</span></button>`;
-  $("#rail").innerHTML=[["New","New prospects",SC.New],...STATUSES.slice(1).map(s=>[s,s,SC[s]])].map(tab).join("")+'<span class="sep"></span>'+tab(["all","All",null]);
+  const base=prospects.filter(p=>segOK(p)&&reachable(p));counts.all=base.length;
+  base.forEach(p=>{const s=p.status||"New";if(s==="New"&&isNiche(p))counts.niche=(counts.niche||0)+1;else counts[s]=(counts[s]||0)+1});
+  const tab=([k,l,c])=>`<button role="tab" aria-pressed="${ui.status===k}" data-st="${k}" ${c?`style="--c:var(${c})"`:""}>${c?'<span class="dotc"></span>':""}${l}<span class="val">${loadedP?(counts[k]||0):"–"}</span></button>`;
+  $("#rail").innerHTML=[["New","New prospects",SC.New],["niche","Niche prospects","--s-niche"],...STATUSES.slice(1).map(s=>[s,s,SC[s]])].map(tab).join("")+'<span class="sep"></span>'+tab(["all","All",null]);
 }
 function fitBars(f){if(String(f).startsWith("Skip"))return '<span class="fit"><span style="margin:0">Skip</span></span>';const n=FITRANK[String(f||"").split(" ")[0]]||0;return `<span class="fit" title="${esc(f)}">${[1,2,3,4].map(i=>`<i class="${i<=n?"on":""}"></i>`).join("")}<span>${esc(String(f||"").split(" ")[0]||"?")}</span></span>`}
 function statusSelect(p){const s=p.status||"New";return `<select class="status" data-id="${esc(p.id)}" aria-label="Status for ${esc(p.company)}" style="--c:var(${SC[s]||"--s-new"})">${STATUSES.map(x=>`<option${x===s?" selected":""}>${x}</option>`).join("")}</select>`}
@@ -313,7 +318,7 @@ function renderProspects(){
   $("#n-prospects").textContent=loadedP?prospects.length:"–";
   const rows=filtered();const body=$("#p-body"),empty=$("#p-empty");
   if(!loadedP){body.innerHTML="";empty.hidden=false;empty.innerHTML=`<h3>Loading your prospects…</h3><p>Leads from the lead finder appear here, newest marked <span class="newtag">NEW</span>.</p>`;return}
-  if(!rows.length){body.innerHTML="";empty.hidden=false;empty.innerHTML=prospects.length?(ui.status!=="all"&&ui.status!=="New"&&!ui.q&&!prospects.some(p=>(p.status||"New")===ui.status)?`<h3>Nobody in ${esc(ui.status)} yet</h3><p>Change a prospect's status to ${esc(ui.status)} and it moves into this tab.</p>`:`<h3>No prospects match these filters</h3><p>Clear the search or pick another tab above.</p>`):`<h3>No prospects yet</h3><p>The lead finder adds manufacturers here every weekday. You can also add one by hand with “Add prospect”.</p>`;return}
+  if(!rows.length){body.innerHTML="";empty.hidden=false;empty.innerHTML=prospects.length?(ui.status==="niche"&&!ui.q?`<h3>No niche prospects yet</h3><p>Mid-size manufacturers (₹1–150 Cr) found outside IndiaMART land here: company filings, defence makers' and exporters' directories.</p>`:ui.status!=="all"&&ui.status!=="New"&&!ui.q&&!prospects.some(p=>(p.status||"New")===ui.status)?`<h3>Nobody in ${esc(ui.status)} yet</h3><p>Change a prospect's status to ${esc(ui.status)} and it moves into this tab.</p>`:`<h3>No prospects match these filters</h3><p>Clear the search or pick another tab above.</p>`):`<h3>No prospects yet</h3><p>The lead finder adds manufacturers here every weekday. You can also add one by hand with “Add prospect”.</p>`;return}
   empty.hidden=true;
   body.innerHTML=rows.map(p=>`<tr data-id="${esc(p.id)}">
     <td><div class="co">${esc(p.company)}${isRecent(p)?'<span class="newtag">NEW</span>':""}</div><div class="sub">${esc(p.legalStatus||"")}${p.yearEst?" · est. "+esc(p.yearEst):""}</div></td>
@@ -426,7 +431,8 @@ function logHTML(r){
   return a.map(e=>`<li class="${esc(e.type)}"><div class="when">${fmtTime(e.at)} · ${esc(e.type==="email"?"Email sent to "+(e.to||""):e.type==="call"?"Call / message":e.type==="status"?"Status":"Note")}</div>
     ${e.type==="email"?`<div><b>${esc(e.subject)}</b></div><pre>${esc(e.body)}</pre>`:`<div>${esc(e.note||"")}</div>`}</li>`).join("");
 }
-function fillTpl(s,r){return String(s).replace(/\{first\}/g,firstName(r.owner||r.contact)).replace(/\{company\}/g,(r.company||"").replace(/\s*\(.*\)$/,"")).replace(/\{industry\}/g,String(r.industry||"manufacturing").split(/[(,]/)[0].trim().toLowerCase())}
+function greeting(d){const h=(d||new Date()).getHours();return h<12?"Good morning":h<17?"Good afternoon":"Good evening"}
+function fillTpl(s,r){return String(s).replace(/\{greeting\}/g,greeting()).replace(/\{first\}/g,firstName(r.owner||r.contact)).replace(/\{company\}/g,(r.company||"").replace(/\s*\(.*\)$/,"")).replace(/\{industry\}/g,String(r.industry||"manufacturing").split(/[(,]/)[0].trim().toLowerCase())}
 function composeHTML(r){
   const isP=drawer.kind==="p";const sk=segKey(r.segment);const tk=isP?((r.activity||[]).some(a=>a.type==="email")?"follow":(TEMPLATES["seg"+sk]?"seg"+sk:"intro")):"client";
   const t=TEMPLATES[tk];const em=isEmail(r.email)?r.email:"";
